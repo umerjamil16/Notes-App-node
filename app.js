@@ -11,14 +11,21 @@ var command = argv._[0];
 
 
 if (command == "add"){
-    notes.addNote(argv.title, argv.body);
+    var note = notes.addNote(argv.title, argv.body);
+    if(note !== undefined){
+        console.log(`Note Saved. Title: ${argv.title}, Body: ${argv.body}`);
+    }else{
+        console.log(`Note not saved. Duplicate note found!`);
+    }
 } else if (command === "list"){
     notes.getAll();
 }else if(command === "read"){
     notes.getNote(argv.title);
     // notes.getRead();
 }else if (command === "remove"){
-    notes.remNote(argv.title);
+    var status = notes.remNote(argv.title);
+    var message = status ? "Note was removed successfully": "Note does not exist"
+    console.log(message)
 }
  else {
     console.log("Command not recognized.");
