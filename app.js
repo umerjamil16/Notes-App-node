@@ -18,9 +18,16 @@ if (command == "add"){
         console.log(`Note not saved. Duplicate note found!`);
     }
 } else if (command === "list"){
-    notes.getAll();
+notes.getAll();
 }else if(command === "read"){
-    notes.getNote(argv.title);
+    var status = notes.getNote(argv.title);
+    if(status == undefined){
+        console.log(`No note with title ${argv.title} found!`);
+    }else {
+        console.log(`Following note found:`);
+        console.log(`Title: ${status.title}`);
+        console.log(`Body: ${status.body}`);
+    }
     // notes.getRead();
 }else if (command === "remove"){
     var status = notes.remNote(argv.title);

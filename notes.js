@@ -41,6 +41,10 @@ var getAll = function(){
 
 var getNote = function(title){
     console.log(`Getting Note:  ${title}`);
+    var notes = fetchNotes();
+    var filteredNotes = notes.filter((note)=>note.title === title);
+    console.log(`Filtered Notes: ${filteredNotes[0].title}`);
+    return filteredNotes[0];
 }
 
 var remNote = function(title){
