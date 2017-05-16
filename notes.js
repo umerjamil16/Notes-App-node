@@ -37,6 +37,7 @@ var addNote = function(title, body){
 
 var getAll = function(){
     console.log("Getting all notes..");
+    return fetchNotes();
 }
 
 var getNote = function(title){
@@ -61,4 +62,9 @@ var remNote = function(title){
         return true;}
 }
 
-module.exports = {addNote, getAll, getNote, remNote};
+var logNote = (note)=>{
+    // debugger;
+    console.log(`Note: Title: ${note.title}, Body: ${note.body}`);
+    }
+
+module.exports = {addNote, getAll, getNote, remNote, logNote};

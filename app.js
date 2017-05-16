@@ -13,20 +13,22 @@ var command = argv._[0];
 if (command == "add"){
     var note = notes.addNote(argv.title, argv.body);
     if(note !== undefined){
-        console.log(`Note Saved. Title: ${argv.title}, Body: ${argv.body}`);
+        notes.logNote(note);
     }else{
         console.log(`Note not saved. Duplicate note found!`);
     }
 } else if (command === "list"){
-notes.getAll();
+    var allNotes = notes.getAll();
+    console.log(`Printing ${allNotes.length} note(s)`);
+    allNotes.forEach((note)=>{
+        notes.logNote(note);
+    });
 }else if(command === "read"){
     var status = notes.getNote(argv.title);
     if(status == undefined){
         console.log(`No note with title ${argv.title} found!`);
     }else {
-        console.log(`Following note found:`);
-        console.log(`Title: ${status.title}`);
-        console.log(`Body: ${status.body}`);
+                notes.logNote(status);
     }
     // notes.getRead();
 }else if (command === "remove"){
