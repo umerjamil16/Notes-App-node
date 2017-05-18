@@ -48,23 +48,18 @@ var getNote = function(title){
     return filteredNotes[0];
 }
 
-var remNote = function(title){
-    console.log(`Removing Note: ${title}!`);
-    var notes = fetchNotes();
-    var filteredNotes = notes.filter((note)=>{
-        note.title !== title
-    });
-    if(filteredNotes.length === notes.length){
-        // console.log(`No note removed!`);
-        return false;
-    } else 
-       { saveNotes(filteredNotes);
-        return true;}
-}
+
+var removeNote = (title) => {
+  var notes = fetchNotes();
+  var filteredNotes = notes.filter((note) => note.title !== title);
+  saveNotes(filteredNotes);
+
+  return notes.length !== filteredNotes.length;
+};
 
 var logNote = (note)=>{
     // debugger;
     console.log(`Note: Title: ${note.title}, Body: ${note.body}`);
     }
 
-module.exports = {addNote, getAll, getNote, remNote, logNote};
+module.exports = {addNote, getAll, getNote, removeNote, logNote};

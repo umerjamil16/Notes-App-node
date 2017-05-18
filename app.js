@@ -6,7 +6,33 @@ const yargs = require("yargs");
 
 const notes = require("./notes.js");
 
-const argv = yargs.argv;
+const cmdObj = {
+        title:{
+            describe: "Title of note",
+            demand: true,
+            alias: "t"
+        },
+        body: {
+            describe: "Body of the note",
+            demand: true,
+            alias: "b"
+        }    
+};
+
+const argv = yargs
+    .command("add", "Add a new note", {
+        title:cmdObj.title,
+        body: cmdObj.body
+    })
+    .command("list", "List all notes")
+    .command("read", "Read a note", {
+        title:cmdObj.title    
+    })
+    .command("remove", "Remove the particular note", {
+         title:cmdObj.title
+   })
+    .help()
+    .argv;
 var command = argv._[0];
 
 
@@ -24,6 +50,7 @@ if (command == "add"){
         notes.logNote(note);
     });
 }else if(command === "read"){
+    console.log("reading a note..");
     var status = notes.getNote(argv.title);
     if(status == undefined){
         console.log(`No note with title ${argv.title} found!`);
@@ -32,10 +59,10 @@ if (command == "add"){
     }
     // notes.getRead();
 }else if (command === "remove"){
-    var status = notes.remNote(argv.title);
-    var message = status ? "Note was removed successfully": "Note does not exist"
-    console.log(message)
-}
+  var noteRemoved = notes.removeNote(argv.title);
+  var message = noteRemoved ? 'Note was removed' : 'Note not found';
+  console.log(message);
+} 
  else {
     console.log("Command not recognized.");
 }
